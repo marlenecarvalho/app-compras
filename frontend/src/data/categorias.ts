@@ -1,5 +1,5 @@
 import { Apple, Carrot, Beef, Sandwich, Milk } from "lucide-react";
-import type Categoria  from "@/components/types";
+import type { Categoria } from "@/components/types";
 
 export const categorias: Categoria[] = [
   { id: "fruta",   nome: "Fruta",  emoji: Apple,    descricao: "Fruta",   cor: "bg-[#E07B67]" },

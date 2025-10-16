@@ -1,16 +1,25 @@
 import { Injectable } from "@nestjs/common";
-import { PrismaService } from "src/db/prisma.service";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { Item } from "./item.entity";
 
 @Injectable()
 export class ItemsService {
-    constructor (private prisma: PrismaService) {}
+    constructor (@InjectRepository(Item)
+  private repo: Repository<Item>,) {}
 
     
- create(data: { nome: string; quantidade: number; categoria: string }) {
-    return this.prisma.item.create({ data });
+  findAll(): Promise<Item[]> {
+    return this.repo.find({ order: { createdAt: 'desc' } });
   }
 
-  findAll() {
-    return this.prisma.item.findMany({ orderBy: { createdAt: 'desc' } });
+  create(data: Partial<Item>): Promise<Item> {
+    const item = this.repo.create(data);
+    return this.repo.save(item);
+  }
+
+
+  async delete(id: number) {
+    return this.repo.delete(id);
   }
 }

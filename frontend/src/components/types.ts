@@ -1,18 +1,19 @@
 import { LucideIcon } from "lucide-react";
 
-type Categoria = {
-    id: number;
+export type Categoria = {
+    id: string;
     nome: string;
     emoji: LucideIcon;
     descricao: string;
     cor: string
 
-}
-
-type Item = {
+};
+export type Item = {
     id: number;
     nome: string;
     quantidade: number;
-    unidade: string
-    categoriaId: string 
+    unidade: string;
+    categoria: string;
+    comprado?: boolean;
+    // categoriaId: string 
 }
