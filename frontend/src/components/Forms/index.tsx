@@ -1,11 +1,9 @@
-
-
-import { useState } from 'react';
-import { Categoria } from '../types';
-import { QuantidadeForm } from '../QuantidadeForm';
-import { ButtonAdicionar } from '../ButtonAdicionar';
-import { ItemForm } from '../ItemForm';
-import { CategoriasList } from '../CategoriasList';
+import { useState } from "react";
+import { Categoria } from "../types";
+import { QuantidadeForm } from "../QuantidadeForm";
+import { ButtonAdicionar } from "../ButtonAdicionar";
+import { ItemForm } from "../ItemForm";
+import { CategoriasList } from "../CategoriasList";
 
 type FormsProps = {
   categories: Categoria[];
@@ -18,44 +16,36 @@ type FormsProps = {
 };
 
 export const Forms = ({ categories, onAddItem }: FormsProps) => {
-  const [nome, setNome] = useState('');
+  const [nome, setNome] = useState("");
   const [quantidade, setQuantidade] = useState<number>(1);
-  // use o mesmo rótulo do dropdown (Un., L, Kg)
-  const [unidade, setUnidade] = useState<string>('Un.');
-  const [categoriaId, setCategoriaId] = useState<string>('');
+  const [unidade, setUnidade] = useState<string>("Un.");
+  const [categoriaId, setCategoriaId] = useState<string>("");
 
   const disabled = !nome.trim() || !categoriaId || quantidade < 1;
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (disabled) return;
-
     onAddItem({
       nome: nome.trim(),
       quantidade,
       unidade,
       categoria: categoriaId,
     });
-
-    // reset bonito
-    setNome('');
+    setNome("");
     setQuantidade(1);
-    setUnidade('Un.');
-    setCategoriaId('');
+    setUnidade("Un.");
+    setCategoriaId("");
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      // grade com larguras idênticas à página/labels
-      className="grid grid-cols-[1fr_160px_300px_44px] items-center gap-4 px-1"
-    >
+    <form onSubmit={handleSubmit} className="flex items-center gap-1 px-1">
       {/* Item */}
       <ItemForm
         value={nome}
-        onChange={setNome as any}
+        onChange={(v: string) => setNome(v)}
         placeholder=" "
-        className="h-11 w-15 border border-violet-400/40 bg-zinc-900/70 px-3 text-base text-zinc-100 outline-none ring-violet-500/40 focus:border-violet-400 focus:ring-2"
+        className="h-11 w-full border border-violet-400/40 bg-zinc-900/70 px-3 text-base text-zinc-100 outline-none ring-violet-500/40 focus:border-violet-400 focus:ring-2"
       />
 
       {/* Quantidade */}
@@ -64,7 +54,7 @@ export const Forms = ({ categories, onAddItem }: FormsProps) => {
         setQuantidade={setQuantidade}
         unidade={unidade}
         setUnidade={setUnidade}
-        unidadesDisponiveis={['Un.', 'L', 'Kg']}
+        unidadesDisponiveis={["Un.", "L", "Kg"]}
         className="h-11"
       />
 
@@ -73,7 +63,7 @@ export const Forms = ({ categories, onAddItem }: FormsProps) => {
         categories={categories}
         selected={categoriaId}
         onSelect={setCategoriaId}
-        className="h-11 w-full"
+        className="h-11"
       />
 
       {/* Botão + */}
@@ -81,7 +71,7 @@ export const Forms = ({ categories, onAddItem }: FormsProps) => {
         type="submit"
         disable={disabled}
         onClick={() => {}}
-        className=" h-11 w-8 justify-self-end"
+        className="ml-auto px-4 py-4 md:px-3 md:py-3"
       />
     </form>
   );

@@ -3,7 +3,7 @@ import { LucideIcon } from "lucide-react";
 export type Categoria = {
     id: string;
     nome: string;
-    emoji: LucideIcon;
+    emoji?: LucideIcon;
     descricao: string;
     cor: string
 
